@@ -86,3 +86,8 @@ Program.assertEqual(doSearch(primes, 73), 20);
 Program.assertEqual(doSearch(primes, 61), 17);
 Program.assertEqual(doSearch(primes, 4), -1);
 ```
+
+### 이진 검색 실행 횟수
+
+길이가 n인 배열: n개의 값부터 시작해 1개만 남을떄까지 범위를 반으로 줄여나간 횟수에 1을 더한 횟수 
+=> (2를 밑으로 하는 n의 로그) + 1
