@@ -44,7 +44,6 @@ auth.onAuthStateChanged(function(user) {
       // 인증 성공시
       console.log("success");
       console.log(user);
-      // 후에 메모 리스트 출력 기능
     } else {
       // 인증 실패시
       auth.signInWithPopup(authProvider);
@@ -52,12 +51,40 @@ auth.onAuthStateChanged(function(user) {
   });
 ```
 
-### 3. 데이터 가져오기
+### 3. 데이터 저장하기
 
+```js
+var database = firebase.database();
+var ref = database.ref('memos/');
+ref.push({
+	text: 'text'
+})
+```
 
-<!--
-4. 메모 저장 기능 구현
-5. 메모 한 건 출력 기능 구현
-6. 메모 수정 기능 구현
-7. 메모 삭제 기능 구현-->
+### 4. 데이터 출력하기
+
+```js
+var database = firebase.database();
+var ref = database.ref('memos/');
+ref.on('child_added', function(data) {
+	console.log(data.key);
+	console.log(data.val());
+});
+```
+
+### 5. 데이터 수정하기
+
+```js
+ref.on('child_changed', function(data) {
+	console.log(data.key);
+	console.log(data.val());
+});
+```
+
+### 6. 데이터 삭제하기
+
+```js
+var ref = database.ref('memos/' + key);
+ref.remove();
+```
 
