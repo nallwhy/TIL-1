@@ -13,7 +13,7 @@
 	- Firebase 프로젝트 초기화 `$ firebase init`
 	- Firebase 로컬 서버 동작시키기 `$ firebase serve`
 
-## 프로젝트 개발
+## 프로젝트 개발 - Web
 
 ### 1. 환경 설정 코드 추가
 
@@ -88,3 +88,42 @@ var ref = database.ref('memos/' + key);
 ref.remove();
 ```
 
+## 프로젝트 개발 - Android
+
+### 1. 안드로이드 환경 설정
+
+1. 콘솔에서 `google-services.json` 파일을 다운받아 `app` 위치에 넣어주기
+2. SDK 추가
+
+프로젝트 레벨 
+
+```
+buildscript {
+    // ...
+    dependencies {
+        // ...
+        classpath 'com.google.gms:google-services:3.0.0'
+    }
+}
+```
+
+모듈 레벨
+
+```
+apply plugin: 'com.android.application'
+
+android {
+  // ...
+}
+
+dependencies {
+  // ...
+  compile 'com.google.firebase:firebase-core:10.0.1'
+
+  // Getting a "Could not find" error? Make sure you have
+  // the latest Google Repository in the Android SDK manager
+}
+
+// ADD THIS AT THE BOTTOM
+apply plugin: 'com.google.gms.google-services'
+```
