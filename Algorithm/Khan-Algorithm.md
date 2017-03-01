@@ -156,3 +156,114 @@ Program.assertEqual(doSearch(primes, 4), -1);
 - 실행 시간이 Ω(f(n))라면 n이 충분히 클 때 실행 시간은 어떤 상수 k에 대해 최소 k*f(n)임
 - Θ(f(n))가 자동적으로 O(f(n))를 의미하는 것과 마찬가지로 Ω(f(n)도 의미함
 - 정확하진 않지만 모든 실행 시간이 Ω(1)이라 말할 수 있음
+
+## 정렬
+
+### swap 함수
+
+```js
+var swap = function(array, firstIndex, secondIndex) {
+    var temp = array[firstIndex];
+	array[firstIndex] = array[secondIndex];
+	array[secondIndex] = temp;
+};
+
+var testArray = [7, 9, 4];
+swap(testArray, 0, 1);
+
+println(testArray);
+
+Program.assertEqual(testArray, [9, 7, 4]);
+```
+
+### 선택 정렬 의사코드
+
+1. 가장 작은 카드를 찾아 첫 번째 카드와 바꿈
+2. 두 번째로 작은 카드를 찾아 두 번째 카드와 바꿈
+3. 세 번째로 작은 카드를 찾아 세 번째 카드와 바꿈
+4. 배열이 정렬이 다 될때까지 계속 다음으로 작은 카드를 찾아서 정확한 위치로 옮김
+
+### 하위 배열에서 최솟값 찾기
+
+```js
+var indexOfMinimum = function(array, startIndex) {
+    var minValue = array[startIndex];
+    var minIndex = startIndex;
+
+    for(var i=minIndex+1; i<array.length; i++) {
+     if(array[i] < minValue) {
+         minValue = array[i];
+         minIndex = i;
+     }
+    }
+    
+    return minIndex;
+}; 
+
+var array = [18, 6, 66, 44, 9, 22, 14];   
+var index = indexOfMinimum(array, 2);
+
+println("The index of the minimum value of the subarray starting at index 2 is " + index + "."  );
+Program.assertEqual(index, 4);
+```
+
+## 선택 정렬 구현
+
+```js
+var swap = function(array, firstIndex, secondIndex) {
+    var temp = array[firstIndex];
+    array[firstIndex] = array[secondIndex];
+    array[secondIndex] = temp;
+};
+
+var indexOfMinimum = function(array, startIndex) {
+
+    var minValue = array[startIndex];
+    var minIndex = startIndex;
+
+    for(var i = minIndex + 1; i < array.length; i++) {
+        if(array[i] < minValue) {
+            minIndex = i;
+            minValue = array[i];
+        }
+    } 
+    return minIndex;
+}; 
+
+var selectionSort = function(array) {
+    for(var i=0; i<array.length-1; i++) {
+        var swapIndex = 0;
+        swapIndex = indexOfMinimum(array, i);
+    swap(array, i, swapIndex);
+    }
+};
+
+var array = [22, 11, 99, 88, 9, 7, 42];
+selectionSort(array);
+println("Array after sorting:  " + array);
+
+Program.assertEqual(array, [7, 9, 11, 22, 42, 88, 99]);
+```
+
+### 1부터 n까지 수의 합 계산 - 등차급수
+
+![](Khan-Algorithm_4.png)
+
+1. 가장 작은 수와 가장 큰 수끼리 짝지어 더함
+2. 짝지은 수의 개수만큼 곱해줌
+3. 홀수 개수라면 홀로 남은 수는 한쌍의 반으로 취급하며 계산함
+
+1. 수가 총 n개 만큼 있을 때 가장 작은 수와 가장 큰 수의 합은 n+1
+2. n/2개의 쌍
+3. 따라서 1부터 n까지 수의 합운 (n+1)(n/2)로 나타냄
+4. 바꿔 쓰면 (n^2+n)/2
+
+### 선택 정렬에 대한 점근적 실행 시간 
+
+선택 정렬에 소요되는 총 실행 시간
+
+1. 모든 indexOfMinimum 호출에 대한 실행 시간 - 루프가 n번 만큼 반복되며 그 다음부터는 n-1, n-2... 이렇게 줄어드는 등차급수며 (n^2+n)/2로 나타낼 수 있음: Θ(n^2)
+2. 모든 swap 호출에 대한 실행 시간 - n번 만큼 호출되고 때마다 같은 시간 소요: Θ(n)
+3. selectionSort 함수 내 남아있는 다른 모든 루프의 실행시간: Θ(n)
+
+이 셋 중 Θ(n^2)이 가장 유효한 항이므로 선택 정렬의 실행시간은 Θ(n^2)으로 정의할 수 있음
