@@ -267,3 +267,86 @@ Program.assertEqual(array, [7, 9, 11, 22, 42, 88, 99]);
 3. selectionSort 함수 내 남아있는 다른 모든 루프의 실행시간: Θ(n)
 
 이 셋 중 Θ(n^2)이 가장 유효한 항이므로 선택 정렬의 실행시간은 Θ(n^2)으로 정의할 수 있음
+
+## 삽입 정렬
+
+### insert 구현
+
+```js
+var insert = function(array, rightIndex, value) {
+  var index;
+  for(index=rightIndex; index>=0 && array[index]>value; index--) {
+    array[index+1] = array[index];   
+  }
+  array[index+1] = value;
+};
+
+var array = [3, 5, 7, 11, 13, 2, 9, 6];
+
+insert(array, 4, 2);
+println("Array after inserting 2:  " + array);
+Program.assertEqual(array, [2, 3, 5, 7, 11, 13, 9, 6]);
+
+insert(array, 5, 9);
+println("Array after inserting 9:  " + array);
+Program.assertEqual(array, [2, 3, 5, 7, 9, 11, 13, 6]);
+
+insert(array, 6, 6);
+println("Array after inserting 6:  " + array);
+Program.assertEqual(array, [2, 3, 5, 6, 7, 9, 11, 13]);
+```
+
++) for문의 조건에 index>=0를 뒤쪽에다 넣어서 한참 고생했음 ㅠㅠ
+
+### 삽입 정렬 의사코드
+
+1. insert를 호출하여 인덱스 0의 정렬된 하위 배열에 인덱스 1부터 시작하는 요소를 삽입
+2. insert를 호출하여 인덱스 0에서 1까지 정렬된 하위 배열에 인덱스 2부터 시작하는 요소를 삽입
+3. ...
+4. 마지막으로 insert를 호출하여 인덱스 0에서 n-2까지 정렬된 하위 배열에 인덱스 n-1부터 시작하는 요소를 삽입
+
+### 삽입 정렬 구현
+
+```js
+var insert = function(array, rightIndex, value) {
+  var index;
+  for(index=rightIndex; index>=0 && array[index]>value; index--) {
+    array[index+1] = array[index];   
+  }
+  array[index+1] = value;
+};
+
+var insertionSort = function(array) {
+    for(var i=1; i<array.length; i++) {
+     insert(array, i-1, array[i]);   
+    }
+};
+
+var array = [22, 11, 99, 88, 9, 7, 42];
+insertionSort(array);
+println("Array after sorting:  " + array);
+Program.assertEqual(array, [7, 9, 11, 22, 42, 88, 99]);
+
+var array = [-1, 0, 22, 11, 99, 88, 9, 7, 42];
+insertionSort(array);
+println("Array after sorting:  " + array);
+Program.assertEqual(array, [-1, 0, 7, 9, 11, 22, 42, 88, 99]);
+```
+
+### 삽입 정렬 분석
+
+1. 인덱스 1, 2, 3, ... , n-1 요소에서 c줄이 필요한 insert를 호출
+2. 삽입하려는 값이 하위 배열의 모든 요소들보다 작다고 가정하면 실행 시간은 총 c*1 + c*2 + ... + c*(n-1) = c*(1+2+...+(n-1)) 임
+3. 이를 수학 공식을 이용해 정리하면 (cn^2-cn)/2
+4. Big-Θ 표기법을 사용하면 삽입 정렬의 실행 시간은 Θ(n^2)임
+5. 삽입하려는 값이 하위 배열 내의 모든 요소보다 클 경우 삽입 정렬의 실행 시간은 c*(n-1)이며 이는 Θ(n)임
+
+앞처럼 모든 요소가 한 칸씩 밀리는 경우(삽입 정렬의 실행 시간이 Θ(n^2)인 경우)는 배열이 역순으로 정렬되어 있다는 뜻
+
+반대의 경우(삽입 정렬의 실행 시간이 Θ(n)인 경우)는 배열이 미이 정렬되어 있다는 뜻
+
+정리
+- 최악의 경우: Θ(n^2)
+- 최상의 경우: Θ(n)
+- 임의의 배열에 대한 평균적 경우: Θ(n^2)
+- 거의 정렬된 경우: Θ(n)

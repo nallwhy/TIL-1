@@ -127,3 +127,14 @@ dependencies {
 // ADD THIS AT THE BOTTOM
 apply plugin: 'com.google.gms.google-services'
 ```
+
+### 2. 인증 기능
+
+1. SDK 추가 - 모듈 레벨
+
+```
+compile 'com.google.firebase:firebase-auth:10.0.1'
+compile 'com.google.android.gms:play-services-auth:10.0.1'
+```
+
+2. 
