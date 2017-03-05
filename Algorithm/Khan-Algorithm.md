@@ -350,3 +350,163 @@ Program.assertEqual(array, [-1, 0, 7, 9, 11, 22, 42, 88, 99]);
 - 최상의 경우: Θ(n)
 - 임의의 배열에 대한 평균적 경우: Θ(n^2)
 - 거의 정렬된 경우: Θ(n)
+
+## 재귀 알고리즘
+
+### 팩토리얼 함수
+
+n! = n * (n-1) * (n-2) ... 2 * 1 (n=0일 때 1이라고 정의)
+
+```js
+var factorial = function(n) {
+    var result = 1;
+    for(var i=1; i<n+1; i++) {
+     result *= i;   
+    }
+
+    return result;
+};
+
+println("The value of 5! should be " + 5*4*3*2*1);
+println("The value of 5! is " + factorial(5));
+println("The value of 0! should be 1");
+println("The value of 0! is " + factorial(0));
+
+Program.assertEqual(factorial(5), 120);
+Program.assertEqual(factorial(0), 1);
+```
+
+### 재귀를 활용한 팩토리얼
+
+1. 만약 n=0라면 n!=1이다 - 탈출 조건
+2. 그렇지 않으면 n는 반드시 양수여야하고 (n-1)!를 계산하고 그 결과를 n과 곱하는 것과 n!의 결과와 같다 - 재귀 조건
+
+```js
+var factorial = function(n) {
+	// base case: 
+	if(n === 0) {
+	    return 1;
+	}
+	// recursive case:
+	return n * factorial(n-1);
+}; 
+
+println("The value of 0! is " + factorial(0) + ".");
+println("The value of 5! is " + factorial(5) + ".");
+
+Program.assertEqual(factorial(0), 1);
+Program.assertEqual(factorial(5), 120);
+```
+
+### 재귀 알고리즘의 속성
+
+1. 재귀의 호출은 같은 문제 내에서 더 범위가 작은 값, 즉, 하위 문제에 대해 이루어져야 함
+2. 재귀함수 호출은 더 이상 반복되지 않는 base case에 도달해야 함
+
+### 재귀를 활용하여 회문인지 판단하기
+
+1. 만약 문자열이 아무글자도 없거나 한 글자만 있을 때, 이는 회문임
+2. 그렇지 않으면 첫 번째와 마지막 글자의 문자열을 비교
+3. 만약 첫 번째와 마지막의 글자가 다르다면 이는 회문이 아
+4. 그렇지않고 두 글자가 같다면 문자열 양쪽의 글자를 버리고 나머지 문자열이 회문인지 결정해야함. 이 작은 문자열의 대답에 따라 원래 문자열이 회문인지를 결정해야함
+
+```js
+// Returns the first character of the string str
+var firstCharacter = function(str) {
+    return str.slice(0, 1);
+};
+
+// Returns the last character of a string str
+var lastCharacter = function(str) {
+    return str.slice(-1);
+};
+
+// Returns the string that results from removing the first
+//  and last characters from str
+var middleCharacters = function(str) {
+    return str.slice(1, -1);
+};
+
+var isPalindrome = function(str) {
+    // base case #1
+    if(str.length <= 1) {
+        return true;   
+    }
+    // base case #2
+    if(firstCharacter(str) !== lastCharacter(str))  {
+     return false;  
+    }
+    // recursive case
+    return isPalindrome(middleCharacters(str));
+};
+
+var checkPalindrome = function(str) {
+    println("Is this word a palindrome? " + str);
+    println(isPalindrome(str));
+};
+
+checkPalindrome("a");
+Program.assertEqual(isPalindrome("a"), true);
+checkPalindrome("motor");
+Program.assertEqual(isPalindrome("motor"), false);
+checkPalindrome("rotor");
+Program.assertEqual(isPalindrome("rotor"), true);
+```
+
+### 숫자의 거듭제곱 계산하기
+
+1. 탈출 조건은 n=0일때 이고 x^0=1이다
+2. 만약 n이 양수인 짝수라면 재귀적으로 y=x^n/2를 계산하고 x^n은 y*y이다.  이 경우 하나의 재귀만 호출하면 됨. 그리고 그 것의 결과를 곱하면 됨
+3. 만약 n이 양수인 홀수라면 재귀적으로 x^n-1을 계산하고 그것은 0이거나 양수인 짝수일 것이고 x^n=x^n-1 * x다.
+4. 만약 n이 음수라면 재귀적으로 x^-n를 계산하고 그 값을 양수로하면 x^n=1/x^n-1 임
+
+```js
+var isEven = function(n) {
+    return n % 2 === 0;
+};
+
+var isOdd = function(n) {
+    return !isEven(n);
+};
+
+var power = function(x, n) {
+    println("Computing " + x + " raised to power " + n + ".");
+    // base case
+    if(n === 0) {
+        return 1;   
+    }
+    // recursive case: n is negative 
+    if(n < 0) {
+        return 1/power(x, -n);   
+    }
+    // recursive case: n is odd
+    if(isOdd(n) === true) {
+        return x * power(x, n-1);
+    }
+    // recursive case: n is even
+    if(isEven(n) === true) {
+        var result = power(x, n/2);
+        return result * result;   
+    }
+};
+
+var displayPower = function(x, n) {
+    println(x + " to the " + n + " is " + power(x, n));
+};
+
+displayPower(3, 0);
+Program.assertEqual(power(3, 0), 1);
+displayPower(3, 1);
+Program.assertEqual(power(3, 1), 3);
+displayPower(3, 2);
+Program.assertEqual(power(3, 2), 9);
+displayPower(3, -1);
+Program.assertEqual(power(3, -1), 1/3);
+```
+
+### 시어핀스키 가스켓
+
+![](Khan-Algorithm_5.png)
+
+1. 얼마나 작은 사각형인지 결정한다. 만약 그것이 충분이 작다면 그것은 탈출 조건이고 사각형을 채운다. 충분히 작은이 얼마나 작은 것인지 결정해라
+2. 그렇지 않으면 사각형을 왼쪽 위와 오른쪽 위, 오른쪽 아래, 왼쪽 아래 사각형으로 나눠라. 재귀적으로 3개의 하위문제를 해결해라. 왼쪽 위, 오른쪽 위, 오른쪽 아래 사각형에 시어핀스키 가스켓을 그리고 한 번이 아닌 3번의 재귀함수를 호출해야한다. 그것은 시어핀스키 가스켓이 여러 재귀를 나타내기 때문이다.
