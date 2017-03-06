@@ -69,7 +69,7 @@ int main() {
 
 ### 3. [A+B - 3](https://www.acmicpc.net/problem/10950)	
 
-예제 출력 형태(줄바꿈 등)을 세심하게 신경써야 함
+제출 시 예제 출력 형태(줄바꿈 등)을 세심하게 신경써야 함
 
 ```c++
 #include<iostream>
@@ -86,3 +86,48 @@ int main() {
 }
 ```
 
+### 4. [A+B - 4](https://www.acmicpc.net/problem/10951)
+
+입력이 몇 개인지 모르는 경우 아래처럼 입력을 받을 수 있음. 이게 가능한 이유는 찾아보니 EOF를 받으면 while문이 종료되기 때문이라고 함 - [stackoverflow](http://stackoverflow.com/questions/5360129/the-question-on-while-cin)
+
+```c++
+#include <iostream>
+
+int main() {
+    int num1, num2;
+    while(std::cin>>num1>>num2) {
+        std::cout<<num1+num2<<'\n';
+    }
+    return 0;
+}
+```
+
+### 5. [A+B - 5](https://www.acmicpc.net/problem/10952)
+
+```c++
+#include<iostream>
+
+int main() {
+	int num1, num2;
+	while(std::cin>>num1>>num2 && (num1 != 0 && num2 != 0)) {
+		std::cout<<num1+num2<<'\n';
+	}			
+	return 0;
+}
+```
+
+### 6. [A+B - 6](https://www.acmicpc.net/problem/10953)
+
+```c++
+#include <iostream>
+
+int main() {
+	int num1, num2;
+	int size;
+	while(size--) {
+		std::cin>>num1,num2;
+		std::cout<<num1+num2<<'\n';
+	}
+	return 0;
+}
+```
