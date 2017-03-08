@@ -124,6 +124,7 @@ int main() {
 int main() {
 	int num1, num2;
 	int size;
+	std::cin>>size;
 	while(size--) {
 		std::cin>>num1,num2;
 		std::cout<<num1+num2<<'\n';
