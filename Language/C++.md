@@ -192,3 +192,24 @@ int main() {
     return 0;
 }
 ```
+
+## getline
+
+문자열 입력받기
+
+istream& getline (istream& is, string& str, char delim);
+istream& getline (istream& is, string& str);
+
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string str1;
+    cout << "Input: ";
+    getline(cin, str1);
+    cout << str1 << endl;
+    return 0;
+}
+```
