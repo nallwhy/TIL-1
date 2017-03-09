@@ -213,3 +213,9 @@ int main() {
     return 0;
 }
 ```
+
+## 형변환
+
+- string to int: atoi(char *) -> atoi(str.c.str());
+- string to int: stoi(string)
+- int to string: to_string(int)
