@@ -119,16 +119,299 @@ int main() {
 ### 6. [A+B - 6](https://www.acmicpc.net/problem/10953)
 
 ```c++
-#include <iostream>
+##include <iostream>
+#include <string>
+using namespace std;
 
 int main() {
-	int num1, num2;
-	int size;
-	std::cin>>size;
-	while(size--) {
-		std::cin>>num1,num2;
-		std::cout<<num1+num2<<'\n';
-	}
-	return 0;
+    int size;
+    cin >> size;
+    while(size--) {
+        string str1, str2;
+        getline(cin, str1, ',');
+        getline(cin, str2);
+        cout << stoi(str1) + stoi(str2) << endl;
+    }
+    return 0;
 }
 ```
+
+### 7. [A + B - 7](https://www.acmicpc.net/problem/11021)
+
+```c++
+#include <iostream>
+using namespace std;
+
+int main() {
+    int size;
+    cin >> size;
+    for(int i=1; i<=size; i++) {
+        int num1, num2;
+        cin >> num1 >> num2;
+        cout << "Case #" << i << ": " << num1 + num2 << endl;
+    }
+    return 0;
+}
+```
+
+### 8. [A + B - 8](https://www.acmicpc.net/problem/11022)
+
+```c++
+#include <iostream>
+using namespace std;
+
+int main() {
+    int size;
+    cin >> size;
+    for(int i=1; i<=size; i++) {
+        int num1, num2;
+        cin >> num1 >> num2;
+        cout << "Case #" << i << ": " << num1 << " + " << num2 << " = " << num1 + num2 << endl;
+    }
+    return 0;
+}
+```
+
+## 기타 문제 풀이
+
+### 1. [N찍기](https://www.acmicpc.net/problem/2741)
+
+처음 답안: 시간 초과로 실패
+
+```c++
+#include <iostream>
+using namespace std;
+
+int main() {
+    int size;
+    cin >> size;
+    for(int i=1; i<=size; i++) {
+        cout << i << endl;
+    }
+    return 0;
+}
+```
+
+검색해보니 endl는 버퍼를 flush하는 부수적인 효과 때문에 느리다고 함. 그래서 아래처럼 수정하니 성공!
+
+```c++
+#include <iostream>
+using namespace std;
+
+int main() {
+    int size;
+    cin >> size;
+    for(int i=1; i<=size; i++) {
+        cout << i << '\n';
+    }
+    return 0;
+}
+```
+
+### 2. [찍기N](https://www.acmicpc.net/problem/2742)
+
+```c++
+#include <iostream>
+using namespace std;
+
+int main() {
+    int size;
+    cin >> size;
+    for(int i=size; i>0; i--) {
+        cout << i << '\n';
+    }
+    return 0;
+}
+```
+
+### 3. [구구단](https://www.acmicpc.net/problem/2739)
+
+```c++
+#include <iostream>
+using namespace std;
+
+int main() {
+    int num;
+    cin >> num;
+    for(int i=1; i<10; i++) {
+        cout << num << " * " << i << " = " << num * i << '\n';
+    }
+    return 0;
+}
+```
+
+### 4. [2007년](https://www.acmicpc.net/problem/1924)
+
+```c++
+#include <iostream>
+using namespace std;
+
+int main() {
+    char date[][7] = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
+    int countOfMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    
+    int month, day;
+    cin >> month >> day;
+    
+    int total = 0;
+    
+    for(int i=0; i<month-1; i++) {
+        total += countOfMonth[i];
+    }
+    total += day;
+    cout << date[total%7];
+    
+    return 0;
+}
+```
+
+### 5. [합](https://www.acmicpc.net/problem/8393)
+
+```c++
+#include <iostream>
+using namespace std;
+
+int main() {
+    int num;
+    int result = 0;
+    
+    cin >> num;
+    for(int i=1; i<=num; i++) {
+        result += i;
+    }
+    cout << result;
+    return 0;
+}
+```
+
+### 6. [최소, 최대](https://www.acmicpc.net/problem/10818)
+
+```c++
+#include <iostream>
+using namespace std;
+
+int main() {
+    int size;
+    int min = 0, max = 0;
+    cin >> size;
+    
+    while(size--) {
+        int input;
+        cin >> input;
+        if(min == 0) min = input;
+        if(max == 0) max = input;
+        
+        if(input < min) {
+            min = input;
+        } else if(input > max) {
+            max = input;
+        }
+    }
+    
+    cout << min << " " << max;
+    
+    return 0;
+}
+```
+
+코드가 더럽다고 생각해서 다른 사람들의 코드를 봤더니 대체로 algorithm 헤더 파일의 sort 메서드를 이용함
+
+```c++
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+int arr[1000000];
+
+int main() {
+    int size;
+    cin >> size;
+    
+    for(int i=0; i<size; i++) {
+        cin >> arr[i];
+    }
+    
+    sort(arr, arr + size);
+    
+    cout << arr[0] << arr[size-1];
+    
+    return 0;
+}
+```
+
+다른 방법으로는 나처럼 min, max 초기값을 지정하는게 아니라 문제에서 제시해준 입력의 최소, 최대값으로 초기화 해주었음!
+
+## 별찍기
+
+### 1. [별찍기 - 1](https://www.acmicpc.net/problem/2438)
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int line;
+    cin >> line;
+    
+    for(int i=1; i<=line; i++) {
+        for(int j=0; j<i; j++) {
+            cout << "*";
+        }
+        cout << "\n";
+    }
+    
+    return 0;
+}
+```
+### 2. [별찍기 - 2](https://www.acmicpc.net/problem/2439)
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int line;
+    cin >> line;
+    
+    for(int i=1; i<=line; i++) {
+        for(int j=line-i; j>0; j--) {
+            cout << " ";
+        }
+        for(int j=0; j<i; j++) {
+            cout << "*";
+        }
+        cout << "\n";
+    }
+    
+    return 0;
+}
+```
+
+더 깔끔하게 된 코드 
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int line;
+    cin >> line;
+    
+    for(int i=line; i>=1; i--) {
+        for(int j=1; j<=line; j++) {
+            if(j >= i)
+                cout << "*";
+            else
+                cout << " ";
+        }
+        cout << "\n";
+    }
+    
+    return 0;
+}
+```
+
