@@ -510,3 +510,35 @@ Program.assertEqual(power(3, -1), 1/3);
 
 1. 얼마나 작은 사각형인지 결정한다. 만약 그것이 충분이 작다면 그것은 탈출 조건이고 사각형을 채운다. 충분히 작은이 얼마나 작은 것인지 결정해라
 2. 그렇지 않으면 사각형을 왼쪽 위와 오른쪽 위, 오른쪽 아래, 왼쪽 아래 사각형으로 나눠라. 재귀적으로 3개의 하위문제를 해결해라. 왼쪽 위, 오른쪽 위, 오른쪽 아래 사각형에 시어핀스키 가스켓을 그리고 한 번이 아닌 3번의 재귀함수를 호출해야한다. 그것은 시어핀스키 가스켓이 여러 재귀를 나타내기 때문이다.
+
+## 하노이의 탑
+
+### 의사코드 - 방법 1
+
+1. n=1이면 원반을 1번 옮김
+2. n>=2일 경우 
+	1. 1번부터 n-1번 원반을 아무 축에서 다른 비어있는 축으로 옮기는 하위 문제를 재귀적으로 품
+	2. n번 원반을 처음에 놓여있는 축에서 최종적으로 옮겨져야 할 축으로 옮김
+	3. 1번부터 n-1번 원반을 비어있는 축에서 최종적으로 옮겨져야 할 축으로 옮기는 하위 문제를 재귀적으로 품
+
+### 의사코드 - 방법 2
+
+n개 원반 문제를 해결하기 위해서는 2^n-1번 움직여야 함
+
+### 재귀를 활용한 하노이의 탑 풀기
+
+```js
+...
+var solveHanoi = function(numDisks, fromPeg, toPeg) {
+    // base case:  no disks to move
+    if(numDisks === 0) {
+        return true;   
+    }
+    // recursive case:
+    solveHanoi(numDisks-1, fromPeg, hanoi.getSparePeg(fromPeg, toPeg));
+    hanoi.moveDisk(fromPeg, toPeg);
+    solveHanoi(numDisks-1, hanoi.getSparePeg(fromPeg, toPeg), toPeg);
+};
+```
+
+ 
