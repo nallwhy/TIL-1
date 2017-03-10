@@ -541,4 +541,11 @@ var solveHanoi = function(numDisks, fromPeg, toPeg) {
 };
 ```
 
+## 분할 정복식 알고리즘
+
+### 여러 알고리즘 실행 시간
+
+![](Khan-Algorithm_6.png)
+
+
  

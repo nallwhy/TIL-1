@@ -415,3 +415,140 @@ int main() {
 }
 ```
 
+### 3. [별찍기 - 3](https://www.acmicpc.net/problem/2440)
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int line;
+    cin >> line;
+    
+    for(int i=line; i>=1; i--) {
+        for(int j=i; j>=1; j--) {
+            cout << "*";
+        }
+        cout << "\n";
+    }
+    
+    return 0;
+}
+```
+
+### 4. [별찍기 - 4](https://www.acmicpc.net/problem/2441)
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int line;
+    cin >> line;
+    
+    for(int i=line; i>=1; i--) {
+        for(int j=line; j>=1; j--) {
+            if(i >= j)
+                cout << "*";
+            else
+                cout << " ";
+        }
+        cout << "\n";
+    }
+    
+    return 0;
+}
+```
+
+### 5. [별찍기 - 5](https://www.acmicpc.net/problem/2442)
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    
+    for(int line=1; line<=n; line++) {
+        for(int space=1; space<=n-line; space++) {
+            cout << " ";
+        }
+        
+        for(int star=1; star<=line*2-1; star++) {
+            cout << "*";
+        }
+        
+        cout << "\n";
+    }
+    
+    return 0;
+}
+```
+
+### 6. [별찍기 - 7](https://www.acmicpc.net/problem/2444)
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    
+    for(int line=1; line<=n; line++) {
+        for(int space=n-line; space>=1; space--) {
+            cout << " ";
+        }
+        for(int star=1; star<=line*2-1; star++) {
+            cout << "*";
+        }
+        cout << "\n";
+    }
+    
+    for(int line=1; line<n*2-1; line++) {
+        for(int space=1; space<=line; space++) {
+            cout << " ";
+        }
+        for(int star=(n-line)*2-1; star>=1; star--) {
+            cout << "*";
+        }
+        cout << "\n";
+    }
+    
+    return 0;
+}
+```
+
+완전 신박했던 풀이 
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    int k = 1;
+    
+    for(int i=1; i>0; i+=k) {
+        for(int j=1; j<=n-i; j++) {
+            cout << " ";
+        }
+        for(int j=1; j<=i*2-1; j++) {
+            cout << "*";
+        }
+        
+        cout << "\n";
+        if(i == n) {
+            k = -1;
+        }
+    }
+    return 0;
+}
+```
