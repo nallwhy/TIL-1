@@ -552,3 +552,35 @@ int main() {
     return 0;
 }
 ```
+
+무난한 풀이 (함수가 아닌 매크로를 사용하는 경우도 있었음)
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+int abs(int x) {
+    return x>0? x : -x;
+}
+
+int main() {
+    int n;
+    cin >> n;
+    
+    for(int i=1; i<=2*n-1; i++) {
+        for(int j=0; j<abs(n-i); j++) {
+            cout << " ";
+        }
+        
+        for(int j=0; j<(n-abs(n-i))*2-1; j++) {
+            cout << "*";
+        }
+        
+        cout << "\n";
+    }
+    return 0;
+}
+```
+
+### 7. [별찍기 - 8](https://www.acmicpc.net/problem/2445)
