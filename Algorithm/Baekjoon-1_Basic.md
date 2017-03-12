@@ -584,3 +584,174 @@ int main() {
 ```
 
 ### 7. [별찍기 - 8](https://www.acmicpc.net/problem/2445)
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+int abs(int x) {
+    return x>0? x : -x;
+}
+
+int main() {
+    int n;
+    cin >> n;
+    
+    for(int line=1; line<=2*n-1; line++) {
+        for(int i=1; i<=n-(abs(line-n)); i++){
+            cout << "*";
+        }
+        for(int i=1; i<=abs(line-n) * 2; i++) {
+            cout << " ";
+        }
+        for(int i=1; i<=n-(abs(line-n)); i++){
+            cout << "*";
+        }
+        cout << "\n";
+    }
+    return 0;
+}
+```
+
+### 8. [별찍기 - 9](https://www.acmicpc.net/problem/2446)
+
+한 번 꼬이니까 멘붕와서 답을 못풀었음.. 그래서 인터넷에 있는 답안 아무거나 베껴서 제출하고 숏코딩 봄
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    int k = -1;
+    
+    for (int i = n; i <= n; i += k){
+        for (int j = 1; j <= n - i; j++)printf(" ");
+        for (int j = 1; j <= 2 * i - 1; j++)printf("*");
+        printf("\n");
+        if (i == 1){
+            k *= -1;
+        }
+    }
+    return 0;
+}
+```
+
+### 9. [별찍기 - 12](https://www.acmicpc.net/problem/2522)
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    int k = -1;
+    
+    for(int i=n; i<=n; i+=k) {
+        for(int j=1; j<=n; j++) {
+            if(j<i) cout << " ";
+            else cout << "*";
+        }
+        
+        cout << "\n";
+        if(i == 1) k = 1;
+    }
+    
+    return 0;
+}
+```
+
+### 10. [별찍기 - 16](https://www.acmicpc.net/problem/10991)
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    
+    for(int line=1; line<=n; line++) {
+        for(int i=1; i<=n-line; i++) cout << " ";
+        for(int i=1; i<=line*2-1; i++) {
+            if(i%2 == 1) cout << "*";
+            else cout << " ";
+        }
+        
+        cout << "\n";
+    }
+    
+    return 0;
+}
+
+```
+
+출력 문자열을 조금 변형하여 코드수 줄일 수 있음
+
+```c++
+#include <iostream>
+using namespace std;
+int main() {
+    int n;
+    cin >> n;
+    for(int line=1; line<=n; line++) {
+        for(int i=1; i<=n-line; i++) cout << " ";
+        for(int i=1; i<=line; i++) cout << "* ";
+        cout << "\n";
+    }
+    return 0;
+}
+```
+
+### 11. [별찍기 - 17](https://www.acmicpc.net/problem/10992)
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    
+    for(int line=1; line<n; line++) {
+        for(int i=1; i<=n-line; i++) cout << " ";
+        cout << "*";
+        for(int i=1; i<=(line-1)*2-1; i++) cout << " ";
+        if(line != 1) cout << "*";
+        cout << "\n";
+    }
+    for(int i=1; i<=n*2-1; i++) cout << "*";
+    
+    return 0;
+}
+```
+
+아래 풀이로 숏코딩 3등함!!
+
+![](Beakjoon_1.png)
+
+```c++
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    for(int i=0; i<n; i++) {
+        for(int j=0; j<n+i; j++)
+            i==n-1 || j==n-1-i || j==n-1+i ? cout << "*" : cout << " ";
+        
+        cout << "\n";
+    }
+    
+    return 0;
+}
+```
