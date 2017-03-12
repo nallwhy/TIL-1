@@ -547,5 +547,110 @@ var solveHanoi = function(numDisks, fromPeg, toPeg) {
 
 ![](Khan-Algorithm_6.png)
 
+### 병합 정렬
 
- 
+1. p와 r 사이에 있는 숫자 q를 찾아서 나눔.  이진 탐색에서 가운데 값을 찾는 방법과 동일: p+r/2을 하여 내림
+2. 단계를 나눠서 만든 두 개의 하위 문제의 하위 배열을 재귀적으로 정렬하여 정복. array[p..q]와 array[q+1..r]이 됨
+3. 두 정렬된 하위 배열을 다시 하나의 정렬된 하위 배열 array[p..r]으로 합침
+4. 탈출조건: 2개 미만의 요소가 포함된 하위 배열로 p >= r 인 경우
+
+```js
+...
+// Takes in an array and recursively merge sorts it
+var mergeSort = function(array, p, r) {
+    if(p < r) {
+        var mid = Math.floor((p+r)/2);
+        mergeSort(array, p, mid);
+        mergeSort(array, mid+1, r);
+        merge(array, p, mid, r);
+    }
+};
+
+var array = [14, 7, 3, 12, 9, 11, 6, 2];
+mergeSort(array, 0, array.length-1);
+println("Array after sorting: " + array);
+Program.assertEqual(array, [2, 3, 6, 7, 9, 11, 12, 14]);
+```
+
+### 선형 시간 병합
+
+1. array[p..r]에 있는 요소 각각을 lowHalf나 highHalf에 붙여넣음
+2. lowHalf와 highHalf에서 모두 붙여지지 않은 어떤 요소가 있다면 이 중 처음 나오는 두 개의 값을 비교하여 더 작은 값을 array에 붙여넣음
+3. lowHalf와 highHalf 둘 중에 하나의 모든 요소가 array에 복사되었다면 다른 임시 배열의 남는 모든 요소들을 다시 array에 붙여넣음
+
+```js
+// Takes in an array that has two sorted subarrays,
+//  from [p..q] and [q+1..r], and merges the array
+var merge = function(array, p, q, r) {
+    var lowHalf = [];
+    var highHalf = [];
+
+    var k = p;
+    var i;
+    var j;
+    for (i = 0; k <= q; i++, k++) {
+        lowHalf[i] = array[k];
+    }
+    for (j = 0; k <= r; j++, k++) {
+        highHalf[j] = array[k];
+    }
+
+    k = p;
+    i = 0;
+    j = 0;
+    
+    // Repeatedly compare the lowest untaken element in
+    //  lowHalf with the lowest untaken element in highHalf
+    //  and copy the lower of the two back into array
+    while(i<lowHalf.length && j<highHalf.length) {
+        if(lowHalf[i] < highHalf[j]) {
+            array[k] = lowHalf[i++];   
+        } else {
+            array[k] = highHalf[j++];
+        }
+        k++;
+    }
+    
+    // Once one of lowHalf and highHalf has been fully copied
+    //  back into array, copy the remaining elements from the
+    //  other temporary array back into the array
+    while(i < lowHalf.length) {
+        array[k++] = lowHalf[i++];
+    } 
+    while(j < highHalf.length) {
+        array[k++] = highHalf[j++];
+    }
+};
+
+
+var array = [3, 7, 12, 14, 2, 6, 9, 11];
+merge(array, 0,
+    Math.floor((0 + array.length-1) / 2),
+    array.length-1);
+println("Array after merging: " + array);
+Program.assertEqual(array, [2, 3, 6, 7, 9, 11, 12, 14]);
+```
+
+## 퀵 정렬
+
+### 퀵 정렬 의사코드
+
+1. array[p..r] 하위 정렬에서 어떤 요소를 선택하여 나눔. 이 요소를 pivot이라 함. array[p..r]의 요소들을 재배열하고 pivot보다 작거나 똑같은 다른 모든 배열들을 왼쪽에 두고 나머지는 오른쪽에 둠. 이 과정을 분할이라 함. 여기서 포인트는 pivot 왼쪽에 있는 요소들의 순서는 상관이 없고 오른쪽도 마찬가지. 단지 pivot의 양쪽에 알맞게만 있으면 됨. 
+2. array[p..q-1]을 재귀적으로 정렬하여 정복함
+3. 아무것도 결합하지 않음. 정복 단계에서 재귀적으로 정렬할 때 이미 다 했음. 
+
+```js
+...
+var quickSort = function(array, p, r) {
+    if(p<r) {
+        var pivot = partition(array, p, r);
+        quickSort(array, p, pivot-1);
+        quickSort(array, pivot+1, r);
+    }
+};
+
+var array = [9, 7, 5, 11, 12, 2, 14, 3, 10, 6];
+quickSort(array, 0, array.length-1);
+println("Array after sorting: " + array);
+Program.assertEqual(array, [2,3,5,6,7,9,10,11,12,14]);
+```
