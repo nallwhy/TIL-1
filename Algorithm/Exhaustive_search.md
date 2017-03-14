@@ -381,3 +381,71 @@ double shortestPath(vector<int>& path, vector<bool>& visited, double currentLeng
 
 ## 문제: [시계 맞추기](https://algospot.com/judge/problem/read/CLOCKSYNC) (난이도: 중)
 
+스위치를 누르는 순서는 중요하지 않고, 시계는 12시간이 지나면 제 자리로 돌아오기 때문에 각 스위치를 누르는 횟수는 0~3 사이의 정수임. 그러므로 전체 경우의 수는 `4^10=1,048,576`가 됨
+
+```c++
+const int INF = 9999, SWITCHES = 10, CLOCKS = 16;
+// linked[i][j] = 1: i번 스위치와 j번 시계가 연결되어 있다
+// linked[i][j] = 0: i번 스위치와 j번 시계가 연결되어 있지 않다
+const int linked[SWITCHES][CLOCKS] = {
+    { 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    { 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0},
+    { 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1},
+    { 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
+    { 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0},
+    { 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+    { 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+    { 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1},
+    { 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    { 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0}
+};
+
+bool areAligned(int clocks[CLOCKS]) {
+    for(int i=0; i<CLOCKS; i++) {
+        if(clocks[i] != 12) return false;
+    }
+    return true;
+}
+
+void click(int clocks[CLOCKS], int position) {
+    for(int i=0; i<CLOCKS; i++) {
+        if(linked[position][i] == 1) {
+            clocks[i] += 3;
+            if(clocks[i] == 15) clocks[i] = 3;
+        }
+    }
+}
+
+// 남은 스위치들을 눌러서 clocks를 12시로 맞출 수 있는 최소 횟수 반환
+// 불가능하다면 INF 이상의 큰 수를 반환
+int solve(int clocks[CLOCKS], int position) {
+    if(position == SWITCHES) return areAligned(clocks) ? 0 : INF;
+    int result = INF;
+    for(int i=0; i<4; i++) {
+        result = min(result, i+solve(clocks, position+1));
+        click(clocks, position);
+    }
+    return result;
+}
+```
+
+## 많이 등장하는 완전 탐색 유형
+
+주어진 원소로 만들 수 있는 모든 순열 만들기, 주어진 원소 중 R개를 골라낼 수 있는 방법 만들기 등은 다른 문제의 부분 문제로도 빈번히 출제됨
+
+### 모든 순열 만들기
+
+Permutation(순열): 서로 다른 N개의 원소를 일렬로 줄 세운 것
+
+- 가능한 순열의 수는 N!이므로 N이 10을 넘어가면 완전 탐색이 아닌 다른 방법으로 풀어야 함
+- C++의 경우 STL에 포함된 next_permutation() 함수에서 모든 순열을 순서대로 생성하는 작업을 대신해줌
+
+### 모든 조합 만들기
+
+Combination(조합): 서로 다른 N개의 원소 중에서 R개를 순서 없이 골라낸 것
+
+- 경우의 수는 이항 계수 (N R) 로 정의됨
+
+### 2^n가지 경우의 수 만들기
+
+n개의 질문에 대한 답이 예/아니오 중의 하나라고 할 때 존재할 수 있는 답의 모든 조합의 수는 2^n가지임
