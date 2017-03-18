@@ -24,6 +24,7 @@
 | 170315 | 자기만의 방 | 버지니아 울프 | 41~54 page |
 | 170316 | 자기만의 방 | 버지니아 울프 | 55~172 page |
 | 170317 | 낭만적 연애와 그 후의 일상 | 알랭 드 보통 | 1~22 page |
+| 170317 | Foundation of algorithms using c++ | Richard neapolitan, Kumarss naimpour | 1~31 page | 
 
 ## 읽고 싶은 책 리스트
 
