@@ -115,6 +115,98 @@ m이 홀수일 때, A^m = A*A^(m-1)로 나누지 않고, 좀더 절반에 가깝
 // num[]의 자릿수 올림 처리
 void normalize(vector<int>& num) {
 	num.push_back(0);
-	//
+	// 자릿수 올림 처리
+	for(int i=0; i<num.size(); i++) {
+		if(num[i] < 0) {
+			int borrow = (abs(num[i]) + 9) / 10;
+			num[i+1] -= borrow;
+			num[i] += borrow * 10;
+		} else {
+			num[i+1] += num[i] / 10;
+			num[i] %= 10;
+		}
+	}
+	while(num.size() > 1 && num.back() == 0) num.pop_back();
+}
+// 각 배열에는 각 수의 자릿수가 1의 자리에서부터 시작해 저장되어 있음
+// ({3, 2, 1}, {6, 5, 4}) = 123 * 456 = 56088 = {8, 8, 0, 6, 5}
+vector<int> multiply(const vector<int> & a, const vector<int>& b) {
+	vector<int> c(a.size() + b.size() + 1, 0);
+	for(int i=0; i<a.size(); i++)
+		for(int j=0; j<b.size(); j++)
+			c[i+j] += a[i] * b[j];
+	normalize(c);
+	return c;	
 }
 ```
+
+**카라츠바의 빠른 곱셈 알고리즘**
+
+1두 수를 각각 절반으로 쪼갬. 만약 a와 b가 각각 10자리 수라면 a1과 b1은 첫 5자리, a0과 b0은 그 다음 5자리를 저장함.
+
+``` 
+a = a1 * 10^5 + a0
+b = b1 * 10^5 + b0
+```
+
+a*b를 네 개의 조각을 이용해 표현함. 
+
+```
+a*b = (a1 * 10^5 + a0) * (b1 * 10^5 + b0) 
+= a1 * b1 * 10^5 + (a1 * b0 + a0 * b1) * 10^5 + a0 * b0
+```
+
+큰 정수 두 개를 한 번 곱하는 대신, 절반 크기로 나눈 작은 조각을 네 번 곱하는데 이럴 경우 여전히 전체 수행 시간이 `O(n^2)`임. 그래서 4번이 아닌 세 번의 곱셈으로 이 값을 계산함.
+
+```
+a * b = a1 * b1 * 10^5 + (a1 * b0 + a0 * b1) * 10^5 + a0 * b0
+
+z2 = a1 * b1
+z0 = a0 * b0
+z1 = a1 * b0 + a0 * b1 = (a0 + a1) * (b0 + b1) - z0 - z2;
+```
+
+```c++
+// a += b*(10^k)
+void addTo(vector<int>& a, const vector<int>& b, int k);
+// a -= b 구현. a>=b를 가정
+void subFrom(vector<int>& a, const vector<int>& b);
+// 두 긴 정수의 곱을 반환
+vector<int> karatsuba(const vector<int>& a, const vector<int>& b) {
+	int an = a.size(), bn = b.size();
+	// a가 b보다 짧을 경우 둘을 바꿈
+	if(an < bn) return karatsuba(b, a);
+	// base case 1: a나 b가 비어 있는 경우
+	if(an == 0 || bn == 0) return vector<int>();
+	// base case 2: a가 비교적 짧은 경우 O(n^2) 곱셈으로 변경
+	if(an <= 50) return multiply(a,b);
+	int half = an / 2;
+	// a와 b를 밑에서 half 자리와 나머지로 분리
+	vector<int> a0(a.begin(), a, begin() + half);
+	vector<int> a1(a.begin() + half, a.end());
+	vector<int> b0(b.begin(), b.begin() + min<int>(b.size(), half));
+	vector<int> b1(b.begin() + min<int>(b.size, half), b.end());
+	// z2 = a1 * b1
+	bector<int> z2 = karatsuba(a1, b1);
+	// z0 = a0 * b0
+	vector<int> z0 = karatsuba(a0, b0);
+	// a0 = a0 + a1; b0 = b0 + b1
+	addTo(a0, a1, 0); addTo(b0, b1, 0);
+	// z1 = (a0 * b0) - z0 - z2
+	vector<int> z1 = karatsuba(a0, b0);
+	subFrom(z1, z0);
+	subFrom(z1, z2);
+	// result = z0 + z1 * 10^half + z2 * 10^(half*2)
+	vector<int> result;
+	addTo(result, z0, 0);
+	addTo(result, z1, half);
+	addTo(result, z2, half + half);
+	return result;
+}
+```
+
+## 시간 복잡도 분석
+
+`O(n^lg3)`이지만 복잡하기 때문에 입력의 크기가 작은 경우 `O(n^2)` 알고리즘보다 느림.
+
+// todo 나머지 부분은 이해를 못했음..ㅠㅠ
