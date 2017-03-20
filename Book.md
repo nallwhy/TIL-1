@@ -28,6 +28,7 @@
 | 170318 | Foundations of algorithms using c++ | Richard neapolitan, Kumarss naimpour | 32~49 page | 
 | 170318 | 낭만적 연애와 그 후의 일상 | 알랭 드 보통 | 23~47 page |
 | 170319 | 낭만적 연애와 그 후의 일상 | 알랭 드 보통 | 48~84 page |
+| 170320 | 오늘부터 미니멀라이프 | 미쉘 | 22~102 page |
 
 ## 읽고 싶은 책 리스트
 
