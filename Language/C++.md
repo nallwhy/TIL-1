@@ -219,3 +219,47 @@ int main() {
 - string to int: atoi(char *) -> atoi(str.c.str());
 - string to int: stoi(string)
 - int to string: to_string(int)
+
+## vertor
+
+- 동적 배열
+- #include <verctor>
+
+**생성자**
+
+```c++
+// 빈 컨테이너
+vector<int> v1; 
+// 기본값으로 초기화된 n개의 원소를 가짐
+vector<int> v2(10);  
+// x값으로 초기화된 n개의 원소를 가짐
+vector<int> v3(10, 1);
+// v3의 복사본
+vector<int> v4(v3);
+// 일반 배열처럼 생성
+vector<int> v5 = {1, 2, 3, 4};
+```
+
+**메서드**
+
+```c++
+vector<int> v = {1, 2, 3, 4, 5, 6};
+
+// 끝에 3추가
+v.push_back(3);	//  {1, 2, 3, 4, 5, 6, 3}
+// 마지막 원소 제거
+v.pop_back(); //  {1, 2, 3, 4, 5, 6}
+// 모든 원소 제거
+v.clear(); // {}
+v.push_back(1); // {1}
+// 크기를 n으로 변경하고 확장되는 공간의 값은 기본값으로 초기화함
+v.resize(5); // {1, 0, 0, 0, 0}
+// 원소 개수
+v.size();	// 5
+// 비어있는지 확인
+v.empty();	// 0
+// 첫 번째 원소 참조
+v.front();  // 1
+// 마지막 원소 참조
+v.back(); // 0
+```
