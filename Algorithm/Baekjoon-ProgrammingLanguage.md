@@ -210,3 +210,90 @@ int main() {
 	return 0;
 }
 ```
+
+## C++
+
+### cin, cout
+
+scanf와 printf와 같은 입출력 함수. 차이점은 데이터 타입을 포맷 문자열을 통해 명시해 줄 필요 없음. 
+
+scanf와 printf 보다 느림. main 함수에서 cin과 cout을 사용하기 전에 `ios_base::sync_with_stdio(flase);`을 쓰면 빨라지나 printf, scanf와 cin, cout을 섞어 쓸 수 없게됨.
+
+### getline
+
+```c++
+string s;
+getline(cin, s);
+```
+
+한 줄 전체 다를 입력받기 위해 사용하는 함수.
+
+### setprecision
+
+유효숫자 자리수를 지정할 수 있음.
+
+```c++
+#include <iomanip>#include <iostream>using namespace std;int main() {	double f = 3.14159265358979;	cout << setprecision(5) << f << '\n'; 	// 3.1415	cout << setprecision(8) << f << '\n';	// 3.1415927	cout << setprecision(10) << f << '\n';	// 3.141592654	return 0;}
+```
+
+setprecision(5)이면 6자리에서 반올림을 하는데 보통 문제에서는 소수점 몇째자리까지 출력 혹은 정답과의 오차가 10^-4까지 허용한다라는 식임. 
+
+유효숫자가아닌 소수점 몇째자리까지 출력할 건지 결정하는 것이 필요함.
+
+```c++
+#include <iomanip>#include <iostream>using namespace std;int main() {	double f = 3.14159265358979;	cout << fixed << setprecision(5) << f << '\n'; 	// 3.14159	cout << fixed << setprecision(8) << f << '\n';	// 3.14159265	cout << fixed << setprecision(10) << f << '\n';	// 3.1415926536	return 0;}
+```
+
+### endl vs '\n'
+
+줄바꿈 시에 endl은 줄바꿈을 출력하고 스트림을 flush 시키는 기능도 포함되어 있어  '\n' 보다 느림.
+
+[연습문제](https://www.acmicpc.net/problem/2741)
+
+```c++
+#include <iostream>
+using namespace std;
+int main() {
+    int n;
+    cin >> n;
+    for(int i=1; i<=n; i++) cout << i << '\n';
+    return 0;
+}
+```
+
+cout보다는 printf가 더 빠름.
+
+## C++11
+
+### auto
+
+- 컴파일러가 타입을 추론해서 타입을 결정함. 
+- 선언시 변수의 타입을 명확하게 알 수 있어야 함. 
+- 중간에 타입을 바꿀 수 없음.
+
+컴파일 에러가 나는 코드
+
+```c++
+auto a,b; // 선언시 명확한 타입을 알 수 없음
+cin >> a >> b;
+cout << a + b << '\n";
+```
+
+올바른 코드
+
+```c++
+auto a = 0,b =0 ;
+cin >> a >> b;
+cout << a + b << '\n";
+```
+
+iterator 사용 시 편리함
+
+```c++
+// auto를 사용하지 않는 경우
+map<pair<int, int>, vector<pair<int, string>>> d;
+for(map<pair<int, int>, vector<pair<int, string>>>::iterator it = d.begin(); it != d.end(); it++) { ... }
+// 위와 같은 코드를 아래처럼 줄일 수 있음
+map<pair<int, int>, vector<pair<int, string>>> d;
+for(auto it = d.begin(); it != d.end(); it++) { ... }
+```
