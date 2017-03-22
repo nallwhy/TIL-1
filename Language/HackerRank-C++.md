@@ -52,3 +52,26 @@ int main() {
     return 0;
 }
 ```
+
+## 4. [Conditional Statements](https://www.hackerrank.com/challenges/c-tutorial-conditional-if-else)
+
+```c++
+#include <cstdio>
+#include <vector>
+#include <string>
+using namespace std;
+
+int main() {
+    vector<string> NUMBER = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+    
+    long num;
+    scanf("%ld", &num);   
+   
+    if(num <= 9) {
+        printf("%s", NUMBER[num-1].c_str());
+    } else {
+        printf("Greater than 9");
+    }
+    return 0;
+}
+```
