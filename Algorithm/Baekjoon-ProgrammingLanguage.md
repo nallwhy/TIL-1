@@ -297,3 +297,105 @@ for(map<pair<int, int>, vector<pair<int, string>>>::iterator it = d.begin(); it 
 map<pair<int, int>, vector<pair<int, string>>> d;
 for(auto it = d.begin(); it != d.end(); it++) { ... }
 ```
+
+### Range-based for
+
+다른 언어의 for each문에 해당하는 문법.
+
+```c++
+vector<int> a = {1, 2, 3, 4, 5};
+for(int i=0; i<a.size(); i++) {
+	cout << a[i] << ' ';
+}
+cout << '\n';
+
+for(int x : a) {
+	cout << x << ' ';
+}
+cout << '\n';
+```
+
+& 연산자를 사용하여 값 복사가 아닌 참조로 동작하는 방법. vector가 엄청 큰 경우 for를 돌리는 것보다 값 복사하는 시간이 포함되어 느려짐.
+
+```c++
+vector<pair<int, int>> a = {{1, 2}, {3, 4}, {5, 6}};
+for(int i=0; i<a.size(); i++) {
+	cout << a[i].first + a[i].second << ' ';
+}
+cout << '\n';
+
+for(auto &p : a) {
+	cout << p.first + p.second << ' ';
+}
+cout << '\n';
+```
+
+초기화 리스트를 이용하는 경우.
+
+```c++
+int sum = 0;
+for(auto x : {1, 2, 3, 4}) {
+	sum += x;
+}
+cout << "sum = " << sum << '\n';
+```
+
+배열을 이용하는 경우.
+
+```c++
+int a[] = {1, 2, 3, 4, 5};
+sum = 0;
+for (auto x : a) {
+	sum += x;
+}
+cout << "sum = " << sum << '\n';
+```
+
+문자열을 출력하는 경우.
+
+```c++
+const char cstr[] = "string";
+sum = 0;
+for(auto x : cstr) {
+	sum += 1;
+}
+cout << "sum = " << sum << '\n';	// 배열 마지막에 있는 널 문자 때문에 7출력
+
+string str = "string";
+sum = 0;
+for(auto x : str) {
+	sum += 1;
+}
+cout << "sum = " << sum << '\n';	// 6출력
+```
+
+### 초기화 리스트
+
+```c++
+vector<int> a;
+a.push_back(1);
+a.push_back(3);
+a.push_back(5);
+
+vector<int> a = {1, 3, 5};	// 배열처럼 초기화하면서 선언 가능
+```
+
+위처럼 선언하는 것은 STL 컨테이너에서만 적용되는게 아니라 직접 만든 구조체에도 순서만 맞으면 가능함. 추가로 여러가지 인터페이스에서도 가능.
+
+```c++
+struct Person {
+	string name;
+	int age;
+}
+
+set<int> s = {1, 2, 3, 4, 5};
+map<int, string> m = { {20, "a"}, {10, "hi"} };
+Person p = {"you", 20};
+map<int, vector<pair<int, int>>> m2 = {
+	{10, {{1, 2}, {3, 4}}},
+	{20, {{5, 6}, {7, 8}, {9, 10}}}
+};
+```
+
+### 람다 함수
+
