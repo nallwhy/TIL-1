@@ -399,3 +399,154 @@ map<int, vector<pair<int, int>>> m2 = {
 
 ### 람다 함수
 
+구성: [캡쳐](함수 인자) {함수 내용}
+
+```c++
+int sum(int x, int y) {
+	return x+y;
+}
+cout << sum(1, 2) << '\n';
+
+cout << [](int x, int y) {
+	return x+y;
+}(1, 2) << '\n';
+```
+
+람다 함수도 변수로 만들 수 있음.
+
+```c++
+auto sum2 = [](int x, int y) {
+	return x+y;
+};
+cout << sum2(1, 2) << '\n';
+```
+
+[연습문제](https://www.acmicpc.net/problem/2555)
+
+```c++
+#include <iostream>
+using namespace std;
+int main() {
+    auto print = [] {
+        cout << "10/14" << '\n';
+    };
+    print();
+    return 0;
+}
+```
+
+**캡쳐**
+
+람다 함수의 스코프를 결정함.
+
+[연습문제](https://www.acmicpc.net/problem/10871)
+
+```c++
+int n, y;
+cin >> n >> x;
+auto is_less = [&] (int number) {
+// 함수 밖에 선언되어 있는 변수를 사용하고 싶을 때 캡쳐에 &를 넣어줌
+	return number < x; 
+};
+```
+
+```c++
+#include <iostream>
+using namespace std;
+int main() {
+    int n, x;
+    cin >> n >> x;
+    auto is_less = [&](int n) {
+        return n < x;
+    };
+    for(int i=0; i<n; i++) {
+        int a;
+        cin >> a;
+        if(is_less(a)) {
+            cout << a << ' ';
+        }
+    }
+    return 0;
+}
+```
+
+- 캡쳐에 &을 넣으면 선언하는 시점에서 바깥에 있는 변수를 모두 사용가능.
+- &x와 같이 어떤 변수를 사용할 것인지도 적을 수 있음.
+- &는 참조고, =는 값 복사임.
+- 여러 개는 ,를 이용할 수 있음.
+
+```c++
+int x = 10;
+int y = 20;
+
+auto f = [&x, y]() {
+	x += 10;
+	// y += 10;	// 주석 해제시 컴파일 에러. auto f = [&x, y]() mutable { 로 선언하면 컴파일은 되지만 실행 결과는 동일함.
+};
+
+cout << "x = " << x << ", y = " << y << '\n'' // x = 10, y = 20 출력
+f();
+cout << "x = " << x << ", y = " << y << '\n'' // x = 20, y = 20 출력
+f();
+cout << "x = " << x << ", y = " << y << '\n'' // x = 30, y = 20 출력
+```
+
+**변수 타입**
+
+함수의 변수 타입은 #include <functional>에 선언되어 있음. function<리턴타입(콤마로 구분한 인자의 타입들)>을 적어주면 됨.
+
+```c++
+function<void()> print = [] {};
+function<void(int)> print2 = [] (int x) {};
+function<int(int, int)> sum = [] (int x, int y) {
+	return x+y;
+};
+```
+
+[연습문제](https://www.acmicpc.net/problem/10807)
+
+재귀함수 호출시에는 auto를 사용할 수 없음.
+
+```c++
+#include <iostream>
+#include <functional>
+using namespace std;
+int main() {
+    int n;
+    cin >> n;
+
+// f 함수가 함수 밖에 있으므로 캡쳐에 &를 넣어줘야 함
+    function<int(int)> f = [&](int n) {
+        if(n <= 1) return n;
+        else return f(n-1) + f(n-2);
+    };
+    
+    cout << f(n) << '\n';
+    return 0;
+}
+```
+
+[연습문제2](https://www.acmicpc.net/problem/10869)
+
+```c++
+vector<function<int(int, int)>> d;
+d.push_back([](int x, int y) {
+	return x+y;
+});
+d.push_back([](int x, int y) {
+	return x-y;
+});
+d.push_back([](int x, int y) {
+	return x*y;
+});
+d.push_back([](int x, int y) {
+	return x/y;
+});
+d.push_back([](int x, int y) {
+	return x%y;
+});
+
+for(auto &f : d) {
+	cout << f(a, b) << '\n';
+}
+```
