@@ -1506,3 +1506,289 @@ int main() {
 ```
 
 bitset은<>사이에 변수가 들어갈 수 없음.
+
+## string
+
+선언 방법.
+
+```c++
+string s1; // 길이가 0인 문자열
+
+char c[] = "c string"; // c언어 스타일의 문자열
+string s2(c); // c언어 스타일의 문자열을 알아서 변환해줌
+string s3 = c; // 대입 연산자 사용
+
+c[1] = "\0';  // c 뒤에 널문자 삽입
+string s4(c); // c만 들어감
+string s5 = c; // c만 들어감
+
+string s6(10, '!'); // !!!!!!!!!!
+string s7 = "abcdefg"; 
+```
+
+문자열 입출력
+
+```c++
+string s1, s2;
+cin >> s1 >> s2;
+cout << s1 << ' ' << s2;
+```
+
+[연습문제](https://www.acmicpc.net/problem/1152)
+
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    int cnt = 0;
+    string s;
+
+    while (cin >> s) {
+        cnt += 1;
+    }
+
+    cout << cnt << '\n';
+    return 0;
+}
+```
+
+[연습문제2](https://www.acmicpc.net/problem/10820)
+
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    string s;
+    while (getline(cin, s)) {
+        int lower = 0;
+        int upper = 0;
+        int number = 0;
+        int space = 0;
+        for (char x: s) {
+            if (x >= 'a' && x <= 'z') {
+                lower += 1;
+            } else if (x >= 'A' && x <= 'Z') {
+                upper += 1;
+            } else if (x >= '0' && x <= '9') {
+                number += 1;
+            } else if (x == ' ') {
+                space += 1;
+            }
+        }
+        cout << lower << ' '<< upper << ' ';
+        cout << number << ' ' << space << '\n';
+    }
+    return 0;
+}
+```
+
+[연습문제3](https://www.acmicpc.net/problem/10821)
+
+getline의 세 번째 인자는 구분자임.
+
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    string s;
+    int cnt = 0;
+    while (getline(cin, s, ',')) {
+        cnt += 1;
+    }
+    cout << cnt << '\n';
+    return 0;
+}
+```
+
+printf로 출력해야하는 경우 c_str 함수 이용.
+
+```c++
+string s = "abc";
+printf("%s\n", s.c_str());
+```
+
+string은 size와 length 함수가 둘 다 있음. size은 unsigned int임. 그래서 사이즈가 0일 때 -1을 하면 unsigned int의 최대값이 출력됨.
+
+```c++
+string s = "book;
+cout << s << ": " << s.size() << '\n'; // 4 출력
+cout << s << ": " << s.length() << '\n'; // 4 출력
+
+s = "";
+cout << s << ": " << s.size() << '\n'; // 0 출력
+cout << s << ": " << s.size-1() << '\n'; // 1844674407370955515615 출력
+```
+
+[연습문제](https://www.acmicpc.net/problem/2743)
+
+빈 문자열 확인.
+
+```c++
+string s = "book";
+cout << s << ": " << s.empty() << '\n'; // 0 출력
+```
+
+연산자를 이용한 문자열의 대소비교.
+
+```c++
+string s1 = "string";
+string s2 = "string";
+
+if(s1 == s2) {
+ cout << "s1 == s2" << '\n';
+} else if(s1 != s2) {
+	cout << "s1 != s2" << '\n';
+}
+// 사전순으로 앞서는지 아닌지 확인
+if(s1 < s2) {
+	cout << "s1 < s2" << '\n';
+} else if(s1 > s2) {
+	cout << "s1 >s2" << '\n';
+}
+```
+
+문자열 덧셈이 가능.
+
+```c++
+string a = "Hello";
+string b = "World";
+
+string hello_world = a + " " + b;
+hello_world += "!";
+hello_world.push_back('!');
+cout << hello_world << '\n'; // Hello World!! 출력
+```
+
+여러가지 방법으로 추가하기. append를 이용하여 어떤 글자를 몇 개 추가할지 지정할 수 있음.
+
+```c++
+string a = "He";
+a.append(2, 'l'); // "Hell"
+a.append("o").append(1, ' ');  // "Hello "
+
+string b = "";
+const char *c = "World";
+b.append(c); // "World"
+
+string hello_world = a; // "Hello "
+hello_world.append(b); // "Hello World";
+hello_world.push_back('!'); // "Hello World!"
+```
+
+insert 함수 사용하기. 실제로는 잘 안씀.
+
+```c++
+string s = "e"; // "e"
+s.insert(0, "H"); // "He"
+s.insert(2, "o"); // "Heo"
+s.insert(2, 2, "l").append(" "); // "Hello "
+string world = "Half the World Away";
+s.insert(6, world, 9, 5).push_back('!'); // "Hello World!"
+```
+
+stoi(string to int) 함수.
+
+```c++
+string str = "10";
+int number = stoi(str);
+printf(str, number); // 10 출력
+
+number = stoi(str, 0, 2); // 0번 문자부터 2진수로 바꾼다
+printf(str, number);  // 2 출력
+
+str = "ffff";
+number = stoi(str, 0, 16);
+printf(str, number); // 65535 출력
+
+str = "21 Guns";
+number = stoi(str); // 알아서 숫자만 바꿔줌
+print(str, number); // 21 출력
+
+str = "3.141592";
+number = stoi(str); // 정수로 바꿈
+print(str, number); // 3 출력
+
+str = "2147483648"; number = stoi(str); // int 범위를 넘어가므로 에러print(str, number);
+str = "hello";number = stoi(str); // 숫자가 없어서 에러print(str, number);
+```
+
+[연습문제](https://www.acmicpc.net/problem/10822)
+
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    string s;
+    int sum = 0;
+    while (getline(cin, s, ',')) {
+        sum += stoi(s);
+    }
+    cout << sum << '\n';
+    return 0;
+}
+```
+
+[연습문제2](https://www.acmicpc.net/problem/10823)
+
+string을 표준 입출력(cin, cout)처럼 사용하려면 istringstream을 사용.
+
+```c++
+#include <iostream>
+#include <sstream>
+#include <string>
+using namespace std;
+int main() {
+    string s;
+    string line;
+    while (cin >> line) {
+        s += line;
+    }
+    
+    istringstream sin(s);
+
+    string number;
+    int sum = 0;
+
+    while (getline(sin, number, ',')) {
+        sum += stoi(number);
+    }
+
+    cout << sum << '\n';
+    return 0;
+}
+```
+
+기타 문자열 변환 함수들.
+
+- unsigned long: stoul
+- unsigned long long: stoull
+- float: stof
+- double: stod
+- long double: stold
+- long long: stoll
+
+다른 자료형을 문자열로 바꾸기. 다양한 자료형이 다 가능함.
+
+```c++
+int n1 = 1;
+int n2 = 2;
+
+string s1 = to_string(n1);
+string s2 = to_string(n2;
+
+cout << s1 + ' ' + s2 << '\n'; // 1 2 출력
+```
+
+```c++
+long long n1 = 2147483647;
+long long n2 = 2147483647;
+
+string s1 = to_string(n1);
+string s2 = to_string(n2;
+
+cout << s1 + ' ' + s2 << '\n'; // 2147483647 2147483647 출력
+```
