@@ -1069,7 +1069,7 @@ int main() {
 
 로 하니까 시간 초과.. ㅠㅠ 그래서 iostream 말고 cstdio로 바꿔서 구현해보니 성공! 이쯤되면 왜 C++로 해야하는지 점점 의문..ㅎ...
  
- ```c++
+```c++
  #include <cstdio>
 #include <set>
 using namespace std;
@@ -1791,4 +1791,313 @@ string s1 = to_string(n1);
 string s2 = to_string(n2;
 
 cout << s1 + ' ' + s2 << '\n'; // 2147483647 2147483647 출력
+```
+
+## STL Algorithm
+
+### count
+
+- count(begin, end, value): [begin, end)에 포함되어 있는 원소 중에서 value의 개수를 찾음.
+- count_if(begin, end, p): [begin, end)에 포함되어 있는 원소 중에서 조건 p에 해당하는 것의 개수를 찾음.
+- 시간복잡도: `O(N)`
+
+```c++
+vector<int> a = {1, 4, 1, 2, 4, 2, 4, 2, 3, 4, 4};for (int i=1; i<=5; i++) {cout << i << "의 개수: " << count(a.begin(), a.end(), i);cout << '\n';}
+// 2 3 1 5 0개
+```
+
+```c++
+vector<int> a = {1, 4, 1, 2, 4, 2, 4, 2, 3, 4, 4};int even = count_if(a.begin(), a.end(), [](int x) {return x % 2 == 0;});int odd = count_if(a.begin(), a.end(), [](int x) {return x % 2 == 1;});cout << "짝수의 개수: " << even << '\n'; cout << "홀수의 개수: " << odd << '\n';
+```
+
+[연습문제](https://www.acmicpc.net/problem/10807)
+
+[연습문제2](https://www.acmicpc.net/problem/10808)
+
+### find
+
+- find(begin, end, value): [begin, end)에 포함되어 있는 원소 중에서 value의 이터레이터를 리턴함. 없는 경우 end를 리턴.
+- find_if(begin, end, p): [begin, end)에 포함되어 있는 원소 중에서 조건 p에 해당하는 것의 이터레이터를 리턴함. 없는 경우 end를 리턴.
+- 시간복잡도: `O(N)`
+- value가 여러 개 있는 경우 제일 첫 번째 이터레이터를 리턴함.
+
+```c++
+vector<int> a = {1, 4, 1, 2, 4, 2, 4, 2, 3, 4, 4};for (int i=1; i<=5; i++) {	auto it = find(a.begin(), a.end(), i);	cout << i << "의 위치: ";	if (it == a.end()) {		cout << "찾을 수 없음";	} else {		cout << (it-a.begin());	}cout << '\n';}
+```
+
+```c++
+vector<int> a = {1, 4, 1, 2, 4, 2, 4, 2, 3, 4, 4};auto even = find_if(a.begin(), a.end(), [](int x) {return x % 2 == 0;});auto odd = find_if(a.begin(), a.end(), [](int x) {return x % 2 == 1;});cout << "첫 번째 짝수: " << (even - a.begin()) << '\n';cout << "첫 번째 홀수: " << (odd - a.begin()) << '\n';
+```
+
+[연습문제](https://www.acmicpc.net/problem/10809)
+
+### fill
+
+- fill(begin, end, value): [begin, end)을 value로 채움.
+- fill 대신 cstring에 선언되어있는 memset을 주로 사용함. memset은 0과 -1을 제외하면 동작하지 않음.
+- 시간복잡도:  `O(N)`
+
+```c++
+vector<int> a = {1, 4, 1, 2, 4, 2, 4, 2, 3, 4, 4};for (int x : a) {	cout << x << ' ';}cout << '\n';fill(a.begin(), a.end(), 0);for (int x : a) {	cout << x << ' ';}cout << '\n';
+```
+
+[연습문제](https://www.acmicpc.net/problem/10810)
+
+### reverse
+
+- reverse(begin, end): [begin, end)의 순서를 역순으로 만듬.
+- 시간복잡도:  `O(N)`
+
+```c++
+vector<int> a = {1, 4, 1, 2, 4, 2, 4, 2, 3, 4, 4};for (int x : a) {	cout << x << ' ';}cout << '\n';reverse(a.begin(), a.end());for (int x : a) {	cout << x << ' '; // 4 4 3 2 4 2 4 2 1 4 1 출력	}cout << '\n';
+```
+
+[연습문제](https://www.acmicpc.net/problem/10811)
+
+### rotate
+
+- rotate(begin, mid, end): [begin, end)을 mid를 기준으로 왼쪽으로 회전시킴. 
+- begin에는 mid에 있던 값이, end-1에는 mid-1에 들어있던 값이 들어감.
+- 시간복잡도:  `O(N)`
+
+```c++
+vector<int> a = {0, 1, 2, 3, 4, 5};rotate(a.begin(), a.begin()+2, a.end());for (int x : a) {	cout << x << ' ';}cout << '\n';// 0 1 2 3 4 5// 2 3 4 5 0 1
+```
+
+```c++
+vector<int> a = {0, 1, 2, 3, 4, 5};int n = a.size();for (int i=0; i<n; i++) {	rotate(a.begin(), a.begin()+1, a.end());	print(a);}
+```
+
+오른쪽으로 뒤집고 싶을 때.
+
+```c++
+vector<int> a = {0, 1, 2, 3, 4, 5};int n = a.size();for (int i=0; i<n; i++) {	//rotate(a.begin(), a.begin()+(n-1), a.end());	rotate(a.rbegin(), a.rbegin()+1, a.rend());	print(a);}
+```
+
+[연습문제](https://www.acmicpc.net/problem/10812)
+
+### swap
+
+swap(a, b): a와 b에 들어있던 값을 바꿈.
+
+```c++
+int a = 10, b = 20;cout << a << ' ' << b << '\n';swap(a,b);cout << a << ' ' << b << '\n';swap(a,b);cout << a << ' ' << b << '\n';
+```
+
+```c++
+vector<int> a = {1, 2};vector<int> b = {3, 4};cout << a[0] << ' ' << b[0] << '\n';swap(a,b);cout << a[0] << ' ' << b[0] << '\n';swap(a,b);cout << a[0] << ' ' << b[0] << '\n';
+```
+
+[연습문제](https://www.acmicpc.net/problem/10813)
+
+### unique
+
+- 좌표 압축을 할 때 많이 사용. 범위가 중구난방일 때 1부터 n까지로 줄일 수 있는 좋은 방법.
+- unique(begin, end): [begin, end) 구간에서 연속되는 같은 값을 하나를 제외하고 제거.
+- 실제로 컨테이너의 크기를 줄이거나 제거하지 않음.
+- 중복을 덮어씌우거나 시프트 시키는 방식으로 작동함.
+- 중복을 제거한 후의 end 이터레이터를 리턴.
+- 정렬이 되어있지 않으면 붙어있는 중복값만 제거됨.
+- 사용목적: 들어있는 값 중, 같은 값 모두 제거.
+
+```c++
+for (int x : a) {	cout << x << ' ';}cout << '\n';auto last = unique(a.begin(),a.end());for (int x : a) {	cout << x << ' ';}cout << '\n';for (auto it = a.begin(); it != last; ++it) {	cout << *it << ' ';}cout << '\n';
+```
+
+뒷 부분 제거.
+
+```c++
+vector<int> a = {1, 1, 2, 2, 2, 3, 1, 1, 1, 2, 2, 2, 2};auto last = unique(a.begin(),a.end());a.erase(last, a.end());for (int x : a) {	cout << x << ' ';}cout << '\n';
+```
+
+정렬 후 사용해야 중복값 제거가능.
+
+```c++
+vector<int> a = {1, 1, 2, 2, 2, 3, 1, 1, 1, 2, 2, 2, 2};sort(a.begin(),a.end());auto last = unique(a.begin(),a.end());a.erase(last, a.end());for (int x : a) {	cout << x << ' ';}cout << '\n';
+```
+
+### sort
+
+- sort(begin,  end): [begin, end)를 <를 기준으로 정렬. (오름차순)
+- sort(begin, end, cmp): [begin, end)를 cmp 기준으로 정렬.
+
+```c++
+vector<int> a = {5, 3, 2, 1, 4};for (int x : a) {	cout << x << ' ';}cout << '\n';sort(a.begin(), a.end());for (int x : a) {	cout << x << ' ';}cout << '\n';
+```	
+
+[연습문제](https://www.acmicpc.net/problem/2750)
+
+비교함수.
+
+```c++
+bool cmp(const int &u, const int &v) {	return u > v; // u가 v의 앞에 있는게 올바르면 treu, 바뀌어야하면 false}vector<int> a = {5, 3, 2, 1, 4};
+// 하단 모두 내림차순sort(a.begin(), a.end(), greater<int>());sort(a.begin(), a.end(), cmp);sort(a.begin(), a.end(), [](int u, int v) {	return u > v;});
+```
+
+[연습문제](https://www.acmicpc.net/problem/1181)
+
+```c++
+sort(a.begin(), a.end(), [](string u, string v) {	if (u.size() < v.size()) { 		return true;	} else if (u.size() == v.size()) {		return u < v;	} else {		return false;	}});
+```	
+
+더 간결하게.
+
+```c++
+sort(a.begin(), a.end(), [](string u, string v) {if (u.size() == v.size()) {return u < v;} else {return u.size() < v.size();}});
+```
+
+```c++
+sort(a.begin(), a.end(), [](string u, string v) {	return (u.size() < v.size()) || (u.size() == v.size() && u < v);});
+```
+
+하단 방법도 좋음.
+
+```c++
+make_pair<u.size(), u) < make_pair(v_size(), v)
+```
+
+[연습문제](https://www.acmicpc.net/problem/11650)
+
+pair 사용시 편함.
+
+```c++
+int n;scanf("%d",&n);vector<pair<int,int>> a(n);for (int i=0; i<n; i++) {	scanf("%d %d",&a[i].first,&a[i].second);}sort(a.begin(),a.end());for (int i=0; i<a.size(); i++) {	printf("%d %d\n",a[i].first, a[i].second);}
+```
+
+직접 struct를 구현하는 경우에는 비교 함수를 만들어줘야함.
+
+```c++
+struct Point {int x, y;}bool cmp(const Point &u, const Point &v) {if (u.x < v.x) {return true;} else if (u.x == v.x) {return u.y < v.y;} else {return false;}}
+```	
+
+< 연산자를 오버로딩해 구현할 수 있음.
+
+// todo 후에 좀 더 이해하기.
+
+```c++
+#include <cstdio>
+#include <vector>
+#include <algorithm>
+using namespace std;
+struct Point {
+    int x, y;
+    bool operator < (const Point &v) const {
+        if (x < v.x) {
+            return true;
+        } else if (x == v.x) {
+            return y < v.y;
+        } else {
+            return false;
+        }
+    }
+};
+int main() {
+    int n;
+    scanf("%d",&n);
+    vector<Point> a(n);
+    for (int i=0; i<n; i++) {
+        scanf("%d %d",&a[i].x,&a[i].y);
+    }
+    sort(a.begin(),a.end());
+    for (int i=0; i<a.size(); i++) {
+        printf("%d %d\n",a[i].x, a[i].y);
+    }
+    return 0;
+}
+```
+
+[연습문제2](https://www.acmicpc.net/problem/11651)
+
+[연습문제3](https://www.acmicpc.net/problem/10825)
+
+### stable_sort
+
+- stable_sort(begin, end): [begin, end)를 <를 기준으로 정렬.
+- stable_sort(begin, end, cmp): [begin, end)를 cmp를 기준으로 정렬.
+- sort와의 차이점은 값이 같은 경우에 입력으로 주어진 순서가 유지됨.
+- 버블정렬, 머지소트가 대표적임.
+
+[연습문제](https://www.acmicpc.net/problem/10814)
+
+### binary_search
+
+- binary_search(begin, end, value): [begin, end)에서 value를 찾으면  true, 못 찾으면 false.
+- binary search를 사용하기 때문에 정렬되어있어야 함.
+- binary_search(begin, end, value, cmp): [begin, end)에서 value를 cmp를 기준으로 찾으면  treu, 못찾으면 false.
+
+```c++
+vector<int> a = {1, 5, 6, 7, 10, 20};for (int i=1; i<=10; i++) {cout << i << ": ";cout << binary_search(a.begin(), a.end(), i) << '\n';}
+```
+
+[연습문제](https://www.acmicpc.net/problem/10815)
+
+### lower_bound / upper_bound
+
+- lower_bound: [begin, end)에서 value보다 작지 않은 첫 번째 이터레이터.
+- upper_bound: [begin, end)에서 value보다 큰 첫 번째 이터레이터.
+- binary search를 이용해서 구현되어있으므로 binary search를 사용해서 어떤 값의 위치를 찾고 싶을 때 이용하면됨.
+- 정렬이 되어있으면 upper bound에서 lower bound를 빼면 그 수가 몇 개 있는지 알 수 있음.
+
+```c++
+vector<int> a = {1, 3, 4, 5, 7, 7, 8};for (int i=1; i<=10; i++) {	auto l = lower_bound(a.begin(), a.end(), i);	auto r = upper_bound(a.begin(), a.end(), i);	cout << i << ": ";	cout << "lower_bound: " << (l-a.begin()) << ' ';	cout << "upper_bound: " << (r-a.begin());	cout << '\n';}
+```
+
+[연습문제](https://www.acmicpc.net/problem/10815)
+
+### equal_range
+
+- equal_range(begin, end, value): lower_bount, upper_bount를 pair 형태로 리턴.
+
+[연습문제](https://www.acmicpc.net/problem/10815)
+
+### min / max
+
+- min(a, b)- min(a, b, cmp)- min(initializer_list)- min(initializer_list, cmp)- max(a, b)- max(a, b, cmp)- max(initializer_list)- max(initializer_list, cmp)
+
+```c++
+cout << min(2, 3) << '\n';cout << max(2, 3) << '\n';int a = 10, b = 20, c = 30;cout << min(min(a, b), c) << '\n';cout << min({a, b, c}) << '\n';cout << max(max(a, b), c) << '\n';cout << max({a, b, c}) << '\n';
+```
+
+cmp 함수 만들기.
+
+```c++
+string u = "long string";string v = "short";cout << min(u, v) << '\n';cout << min(u, v, [](string u, string v) {return u.size() < v.size();}) << '\n';
+```
+
+[연습문제](https://www.acmicpc.net/problem/10817)
+
+### minmax
+
+- minmax(a, b)- minmax(a, b, cmp)- minmax(initializer_list)- minmax(initializer_list, cmp)
+- min과 max를 pair로 리턴함.
+
+[연습문제](https://www.acmicpc.net/problem/10817)
+
+### min_element / max_element
+
+- min_element(begin, end)- min_element(begin, end, cmp)- max_element(begin, end)- max_element(begin, end, cmp)
+- [begin, end)에서 최소/최대값의 이터레이터를 구함.
+
+```c++
+vector<int> a = {4, 2, 1, 5, 7, 3};auto it = min_element(a.begin(), a.end());cout << "최소: " << *it << ", 위치: " << (it-a.begin()) << '\n';it = max_element(a.begin(), a.end());cout << "최대: " << *it << ", 위치: " << (it-a.begin()) << '\n';
+```
+
+[연습문제](https://www.acmicpc.net/problem/10818)
+
+### minmax_element
+
+- minmax_element(begin, end)- minmax_element(begin, end, cmp)
+
+[연습문제](https://www.acmicpc.net/problem/10818)
+
+### next_permutation
+
+- next_permutation(begin, end)- next_permutation(begin, end, cmp)- prev_permutation(begin, end)- prev_permutation(begin, end, cmp)
+- [begin, end)를 순열이라고 생각했을 때, 사전 순으로 다음에 오는 순열을 만듬.
+- 마지막 순열이면 false 리턴. 
+- do-while문을 사용하는 거의 유일한 경우.
+- 모든 경우를 다해야하는데 순서가 중요할 때 많이 사용하는 알고리즘.
+
+```c++
+vector<int> a = {3, 1, 2};sort(a.begin(), a.end());do {for (int x: a) {	cout << x << ' ';}	cout << '\n';} while(next_permutation(a.begin(), a.end()));
 ```
