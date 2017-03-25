@@ -75,3 +75,28 @@ int main() {
     return 0;
 }
 ```
+
+## 5. [For Loop](https://www.hackerrank.com/challenges/c-tutorial-for-loop)
+
+```c++
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    vector<string> NUMBER = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+    int a, b;
+    cin >> a >> b;
+    for(int i=a; i<=b; i++) {
+        if(i <= 9) {
+            cout << NUMBER[i-1];
+        } else if(i % 2 == 0) {
+            cout << "even";
+        } else /*if(i % 2 == 1)*/ {
+            cout << "odd";            
+        }
+        cout << "\n";
+    }
+    return 0;
+}
+```
