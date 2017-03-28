@@ -24,8 +24,6 @@
 | 170315 | 자기만의 방 | 버지니아 울프 | 41~54 page |
 | 170316 | 자기만의 방 | 버지니아 울프 | 55~172 page |
 | 170317 | 낭만적 연애와 그 후의 일상 | 알랭 드 보통 | 1~22 page |
-| 170317 | Foundations of algorithms using c++ | Richard neapolitan, Kumarss naimpour | 1~31 page | 
-| 170318 | Foundations of algorithms using c++ | Richard neapolitan, Kumarss naimpour | 32~49 page | 
 | 170318 | 낭만적 연애와 그 후의 일상 | 알랭 드 보통 | 23~47 page |
 | 170319 | 낭만적 연애와 그 후의 일상 | 알랭 드 보통 | 48~84 page |
 | 170320 | 오늘부터 미니멀라이프 | 미쉘 | 22~102 page |
@@ -34,6 +32,7 @@
 | 170322 | 낭만적 연애와 그 후의 일상 | 알랭 드 보통 | 117~128 page |
 | 170323 | 낭만적 연애와 그 후의 일상 | 알랭 드 보통 | 129~139 page |
 | 170324 | 낭만적 연애와 그 후의 일상 | 알랭 드 보통 | 140~154 page |
+| 170328 | 낭만적 연애와 그 후의 일상 | 알랭 드 보통 | 155~160 page |
 
 ## 읽고 싶은 책 리스트
 
