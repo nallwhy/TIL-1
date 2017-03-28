@@ -100,3 +100,81 @@ int main() {
     return 0;
 }
 ```
+
+## 6. [Functions](https://www.hackerrank.com/challenges/c-tutorial-functions)
+
+```c++
+#include <cstdio>
+using namespace std;
+int max_of_four(int a, int b, int c, int d) {
+    int max = a;
+    if(max < b) {
+        max = b;
+    }
+    if(max < c) {
+        max = c;
+    }
+    if(max < d) {
+        max = d;
+    }
+    return max;    
+}
+int main() {
+    int a, b, c, d;
+    scanf("%d %d %d %d", &a, &b, &c, &d);
+    int ans = max_of_four(a, b, c, d);
+    printf("%d", ans);
+    
+    return 0;
+}
+```
+
+## 7. [Pointer](https://www.hackerrank.com/challenges/c-tutorial-pointer)
+
+```c++
+#include <stdio.h>
+
+void update(int *a,int *b) {
+    int temp = *a - *b;
+    *a = *a + *b;
+    if(temp < 0) temp *= -1;
+    *b = temp;
+}
+
+int main() {
+    int a, b;
+    int *pa = &a, *pb = &b;
+    
+    scanf("%d %d", &a, &b);
+    update(pa, pb);
+    printf("%d\n%d", a, b);
+
+    return 0;
+}
+```
+
+## 8. [Arrays Intreduction](https://www.hackerrank.com/challenges/arrays-introduction)
+
+```c++
+#include <cstdio>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+    int n;
+    scanf("%d", &n);
+    vector<int> arr(n);
+    for(int i=0; i<n; i++) {
+        int a;
+        scanf("%d", &a);
+        arr[i] = a;
+    }
+    reverse(arr.begin(), arr.end());
+    for(int i=0; i<n; i++) {
+        printf("%d ", arr[i]);
+    }
+    return 0;
+}
+```
