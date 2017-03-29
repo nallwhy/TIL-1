@@ -3,3 +3,5 @@
 ![](TS-Pronunciation_1.png)
 
 ![](TS-Pronunciation_2.png)
+
+![](TS-Pronunciation_3.png)
