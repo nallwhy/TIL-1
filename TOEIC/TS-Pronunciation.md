@@ -7,3 +7,5 @@
 ![](TS-Pronunciation_3.png)
 
 ![](TS-Pronunciation_4.png)
+
+![](TS-Pronunciation_5.png)
