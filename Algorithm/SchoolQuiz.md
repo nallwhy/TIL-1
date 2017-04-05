@@ -2,4 +2,16 @@
 
 **과제 1**
 
-![](Quiz_1.png)
+![](SchoolQuiz_1.png)
+
+**과제 2**
+
+![](SchoolQuiz_2.png)
+
+![](SchoolQuiz_3.png)
+
+![](SchoolQuiz_4.png)
+
+![](SchoolQuiz_5.png)
+
+![](SchoolQuiz_6.png)
