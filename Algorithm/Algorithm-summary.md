@@ -7,3 +7,13 @@
 ![](Algorithm-summary_3.png)
 
 ![](Algorithm-summary_4.png)
+
+![](Algorithm-summary_5.png)
+
+![](Algorithm-summary_6.png)
+
+![](Algorithm-summary_7.png)
+
+![](Algorithm-summary_8.png)
+
+![](Algorithm-summary_9.png)
