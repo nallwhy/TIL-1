@@ -17,3 +17,17 @@
 ![](Algorithm-summary_8.png)
 
 ![](Algorithm-summary_9.png)
+
+![](Algorithm-summary_10.png)
+
+![](Algorithm-summary_11.png)
+
+![](Algorithm-summary_12.png)
+
+![](Algorithm-summary_13.png)
+
+![](Algorithm-summary_14.png)
+
+![](Algorithm-summary_15.png)
+
+![](Algorithm-summary_16.png)
