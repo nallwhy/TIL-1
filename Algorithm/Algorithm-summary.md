@@ -31,3 +31,7 @@
 ![](Algorithm-summary_15.png)
 
 ![](Algorithm-summary_16.png)
+
+![](Algorithm-summary_17.png)
+
+![](Algorithm-summary_18.png)
