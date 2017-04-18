@@ -37,6 +37,7 @@
 ## 디자인
 
 1. [앱 디자인 시작하기 강의 자료](https://www.slideshare.net/SanghoLee1/ss-38908104): 앱 디자인 전체 프로세스가 깔끔하게 잘 설명되어 있음
+2. [Open Arrow 작업기](https://yeun.github.io/2017/04/17/open-arrow.html): open arrow 오픈 소스를 작업하는 동안의 고민과 과정을 설명
 
 ## 글쓰기
 
