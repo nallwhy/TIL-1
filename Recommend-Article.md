@@ -9,6 +9,7 @@
 5. [Android 와 개발 패턴](http://tosslab.github.io/android/2015/03/01/01.Android-mvc-mvvm-mvp.html): 아키텍처의 진화 과정과 그에 따른 간략한 안드로이드 참고 소스코드가 간결하게 있음
 6. [Android에서는 MVC보다 MVP 쪽이 좋을지도 몰라](http://pluu.github.io/blog/android/2016/04/06/android-mvc-mvp/): 실제 MVP를 적용할 때 다시 읽어보면 좋을 것 같은 글. 디테일한 코드들이 있어서 아직은 다 이해를 하기 어려웠음
 7. [Lottie로 안드로이드 앱에 인터렉티브한 애니메이션 구현하기](https://realm.io/kr/news/lottie-for-android-interactive-animation/): 글보다는 영상 보는 것을 추천. 에프터 이펙트를 사용할 줄 알아야한다는 단점이 있지만 애니메이션의 큰 문제인 메모리 관리를 신경 쓸 필요없이 고퀄의 애니메이션을 구현할 수 있는 에어비앤비의 로티 라이브러리 소개 및 라이브 데모
+8. [안드로이드 개발 스킬을 향상시키는 오픈소스 앱 20가지](http://www.kmshack.kr/2017/03/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C-%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%82%AC%EC%9D%84-%ED%96%A5%EC%83%81%EC%8B%9C%ED%82%A4%EB%8A%94-%EC%98%A4%ED%94%88%EC%86%8C%EC%8A%A4-%EC%95%B1-20%EA%B0%80/): 다양한 기능의 오픈소스들 소개
 
 ## Rx
 
