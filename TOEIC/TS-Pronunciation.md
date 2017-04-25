@@ -9,3 +9,7 @@
 ![](TS-Pronunciation_4.png)
 
 ![](TS-Pronunciation_5.png)
+
+![](TS-Pronunciation_6.png)
+
+![](TS-Pronunciation_7.png)
