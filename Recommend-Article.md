@@ -11,6 +11,7 @@
 7. [Lottie로 안드로이드 앱에 인터렉티브한 애니메이션 구현하기](https://realm.io/kr/news/lottie-for-android-interactive-animation/): 글보다는 영상 보는 것을 추천. 에프터 이펙트를 사용할 줄 알아야한다는 단점이 있지만 애니메이션의 큰 문제인 메모리 관리를 신경 쓸 필요없이 고퀄의 애니메이션을 구현할 수 있는 에어비앤비의 로티 라이브러리 소개 및 라이브 데모
 8. [안드로이드 개발 스킬을 향상시키는 오픈소스 앱 20가지](http://www.kmshack.kr/2017/03/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C-%EA%B0%9C%EB%B0%9C-%EC%8A%A4%ED%82%AC%EC%9D%84-%ED%96%A5%EC%83%81%EC%8B%9C%ED%82%A4%EB%8A%94-%EC%98%A4%ED%94%88%EC%86%8C%EC%8A%A4-%EC%95%B1-20%EA%B0%80/): 다양한 기능의 오픈소스들 소개
 9. [A successful XML naming convention](http://jeroenmols.com/blog/2016/03/07/resourcenaming/): 안드로이드 리소스 네이밍을 체계적으로 할 수 있는 방법을 아주 상세하게 설명함
+10. [Android Studio 단위테스트 하기](http://flowarc.tistory.com/entry/Android-Studio-%EB%8B%A8%EC%9C%84%ED%85%8C%EC%8A%A4%ED%8A%B8Unit-Test-%ED%95%98%EA%B8%B0): 간단하게 안드로이드 단위테스트에 대한 설명과 샘플을 구현해볼 수 있음
 
 ## Rx
 
@@ -56,6 +57,7 @@
 3. [손석희의 인터뷰](https://brunch.co.kr/@murutukus/70): 당선 가능성이 없는 심상정 후보가 출마하는 것에 대한 의의
 4. [프로세스 개선이 현업에서 정착되려면](http://woowabros.github.io/woowabros/2017/04/17/process.html): 이론을 넘어서 실제 현업에서 프로세스 개선을 시도하고 정착하기까지의 고민과 과정 소개
 5. [나는 어떻게 일과 두 아이 육아를 하면서 두 번째 학위를 취득하고, 1년만에 5개의 개발 자격증을 취득 할 수 있었을까](https://www.vobour.com/book/view/cehXdJpARpm2mTQwd): 빡빡한 삶이지만 가치있고 효율적인 삶에 대한 소개로 동기부여가 되는 글
+6. [애서가가 말하는 “책 읽을 시간이 없다는 사람들을 위한 조언”](http://ppss.kr/archives/80447): 쉬운 책부터 읽고, 개설서를 읽은 후 그 개설서의 참고문헌을 읽어라. 또, 저자의 계통을 밟아나가고 그 저자의 호적수의 책을 읽어라!
 
 ## 블로그 리스트
 
